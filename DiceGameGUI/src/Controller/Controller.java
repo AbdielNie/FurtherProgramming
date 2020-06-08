@@ -1,59 +1,25 @@
-
-
-import java.awt.EventQueue;
-import java.util.ArrayList;
-
-import javax.swing.SwingUtilities;
-
+package Controller;
 import model.GameEngineImpl;
 import model.SimplePlayer;
-import model.interfaces.DicePair;
 import model.interfaces.Die;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
-import view.interfaces.GameEngineCallback;
+import view.DiceGameGUI;
+import view.GameEngineCallbackGUI;
 
-public class GameEngineCallbackGUI implements GameEngineCallback{
+public class Controller {
 	
-	private DiceGameGUI diceGameGUI;
 	private GameEngine gameEngine=new GameEngineImpl();
-	public GameEngineCallbackGUI(DiceGameGUI diceGameGUI) {
-		// TODO Auto-generated constructor stub
-		this.diceGameGUI=diceGameGUI;
-		gameEngine.addGameEngineCallback(this);
-		addPlayer("test", 100);
-	}
+	private GameEngineCallbackGUI gameEngineCallbackGUI;
+	private DiceGameGUI diceGameGUI;
 	
-
-	@Override
-	public void playerDieUpdate(Player player, Die die, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
-		
-				diceGameGUI.displayDice(player, die);
-				displayPlayers();
-		
-		
-		
-	}
-
-	@Override
-	public void houseDieUpdate(Die die, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
-		diceGameGUI.displayDice(die);
-		displayPlayers();
-		
-	}
-
-	@Override
-	public void playerResult(Player player, DicePair result, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void houseResult(DicePair result, GameEngine gameEngine) {
-		// TODO Auto-generated method stub
-		
+	
+	public Controller(DiceGameGUI diceGameGUI) {
+		// TODO Auto-generated constructor stub
+		gameEngineCallbackGUI=new GameEngineCallbackGUI(this);
+		gameEngine.addGameEngineCallback(gameEngineCallbackGUI);
+		this.diceGameGUI=diceGameGUI;
+		addPlayer("test", 100);
 	}
 	
 	public void addPlayer(String name,int points) {
@@ -62,6 +28,10 @@ public class GameEngineCallbackGUI implements GameEngineCallback{
 		gameEngine.addPlayer(player);
 		displayPlayers();
 		
+	}
+	
+	public void displayDice(Player player,Die die) {
+		diceGameGUI.displayDice(player, die);
 	}
 	
 	public void displayPlayers() {
@@ -115,6 +85,10 @@ public class GameEngineCallbackGUI implements GameEngineCallback{
 			}
 		}).start();
 		
+	}
+	
+	public DiceGameGUI getDiceGameGUI() {
+		return diceGameGUI;
 	}
 
 }

@@ -1,3 +1,4 @@
+package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
+import Controller.Controller;
 import model.interfaces.Die;
 import model.interfaces.Player;
 
@@ -33,7 +35,7 @@ public class DiceGameGUI extends JFrame {
 	private JComboBox comboBox;
 	private JLabel statusJLabel;
 	
-	private GameEngineCallbackGUI gameEngineCallbackGUI;
+	private Controller controller;
 
 	/**
 	 * Launch the application.
@@ -67,7 +69,7 @@ public class DiceGameGUI extends JFrame {
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("AddPlayer");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new PlayerPanel(gameEngineCallbackGUI).show();
+				new PlayerPanel(controller).show();
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_3);
@@ -76,7 +78,7 @@ public class DiceGameGUI extends JFrame {
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id=comboBox.getSelectedItem().toString();
-				gameEngineCallbackGUI.removePlayer(id);
+				controller.removePlayer(id);
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
@@ -85,7 +87,7 @@ public class DiceGameGUI extends JFrame {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id=comboBox.getSelectedItem().toString();
-				gameEngineCallbackGUI.resetBet(id);
+				controller.resetBet(id);
 				txtBet.setText("0");
 			}
 		});
@@ -94,7 +96,7 @@ public class DiceGameGUI extends JFrame {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("HouseRolls");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameEngineCallbackGUI.houseRolls();
+				controller.houseRolls();
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -126,7 +128,7 @@ public class DiceGameGUI extends JFrame {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Player player=gameEngineCallbackGUI.getPlayer(comboBox.getSelectedItem().toString());
+					Player player=controller.getPlayer(comboBox.getSelectedItem().toString());
 					txtBet.setText(player.getBet()+"");
 				} catch (Exception e2) {
 					// TODO: handle exception
@@ -141,7 +143,7 @@ public class DiceGameGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String id=comboBox.getSelectedItem().toString();
 				int bet=Integer.parseInt(txtBet.getText());
-				gameEngineCallbackGUI.setBet(id, bet);
+				controller.setBet(id, bet);
 			}
 		});
 		toolBar.add(btnPlaceBet);
@@ -152,7 +154,7 @@ public class DiceGameGUI extends JFrame {
 				try {
 					String id=comboBox.getSelectedItem().toString();
 					int bet=Integer.parseInt(txtBet.getText());
-					gameEngineCallbackGUI.roll(id, bet);
+					controller.roll(id, bet);
 				} catch (Exception e2) {
 					// TODO: handle exception
 					JOptionPane.showMessageDialog(null, e2.getMessage());
@@ -176,7 +178,7 @@ public class DiceGameGUI extends JFrame {
 		dicePanel= new DicePanel();
 		contentPane.add(dicePanel, BorderLayout.CENTER);
 		
-		gameEngineCallbackGUI=new GameEngineCallbackGUI(this);
+		controller=new Controller(this);
 		
 		
 	}

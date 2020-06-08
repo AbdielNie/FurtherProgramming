@@ -1,3 +1,4 @@
+package view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -5,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Controller;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -15,7 +19,7 @@ public class PlayerPanel extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	
-	private GameEngineCallbackGUI gameEngineCallbackGUI;
+	private Controller controller;
 	private JTextField textName;
 	private JTextField textPoints;
 	
@@ -25,8 +29,8 @@ public class PlayerPanel extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public PlayerPanel(GameEngineCallbackGUI gameEngineCallbackGUI) {
-		this.gameEngineCallbackGUI=gameEngineCallbackGUI;
+	public PlayerPanel(Controller controller) {
+		this.controller=controller;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,7 +65,7 @@ public class PlayerPanel extends JDialog {
 						String name=textName.getText();
 						int points=Integer.parseInt(textPoints.getText());
 						try {
-							PlayerPanel.this.gameEngineCallbackGUI.addPlayer(name, points);
+							PlayerPanel.this.controller.addPlayer(name, points);
 							JOptionPane.showMessageDialog(null,"Add a player!");
 						} catch (Exception e2) {
 							// TODO: handle exception
