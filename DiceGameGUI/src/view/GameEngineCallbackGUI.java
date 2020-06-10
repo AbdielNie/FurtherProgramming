@@ -30,7 +30,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback{
 		// TODO Auto-generated method stub
 		
 				controller.displayDice(player, die);
-				controller.displayPlayers();
+				//controller.displayPlayers();
 				
 		
 		
@@ -41,7 +41,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback{
 	public void houseDieUpdate(Die die, GameEngine gameEngine) {
 		// TODO Auto-generated method stub
 		controller.getDiceGameGUI().displayDice(die);
-		controller.displayPlayers();
+		//controller.displayPlayers();
 		
 	}
 
